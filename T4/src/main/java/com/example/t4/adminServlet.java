@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "adminServlet", value = "/adminServlet")
 public class adminServlet extends javax.servlet.http.HttpServlet {
+
     private UniversityDao admin;
 
     public void init() {
@@ -21,14 +22,12 @@ public class adminServlet extends javax.servlet.http.HttpServlet {
     @Override
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
-            ResultSet result = admin.displayAdmins();
+            ResultSet result = admin.displayAllCourses();
             result.next();
-            String result1 = result.getString(1);
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.print("<p>" + result1 + "</p>");
-            out.println("</body></html>");
+            String resultString = result.getString("courseCode");
 
+            request.setAttribute("resultString",resultString);
+            request.getRequestDispatcher("/adminJSP.jsp").forward(request, response);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

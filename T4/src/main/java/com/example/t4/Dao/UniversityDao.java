@@ -6,6 +6,7 @@ import com.example.t4.Bean.Student;
 import java.sql.*;
 
 public class UniversityDao {
+
     //displays the information of all the courses in the database
     public ResultSet displayAllCourses() throws ClassNotFoundException
     {
