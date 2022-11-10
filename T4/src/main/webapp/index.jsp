@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password" /></td>
+                <td><input type="password"  name="password" /></td>
             </tr>
             <tr>
                 <td>Address</td>
@@ -38,6 +38,10 @@
         </table>
         <input type="submit" value="Submit" />
     </form>
+
+    <a href="aServlet">aServlet</a>
+    <a href="adminServlet">adminServlet</a>
+
 </div>
 </body>
 </html>
