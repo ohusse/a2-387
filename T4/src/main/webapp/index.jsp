@@ -40,7 +40,8 @@
     </form>
 
     <a href="aServlet">aServlet</a>
-    <a href="adminServlet">adminServlet</a>
+
+    <a href="bServlet">adminServlet</a>
 
 </div>
 </body>

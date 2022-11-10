@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
-@WebServlet(name = "adminServlet", value = "/adminServlet")
-public class adminServlet extends javax.servlet.http.HttpServlet {
+@WebServlet(name = "bServlet", value = "/bServlet")
+public class bServlet extends javax.servlet.http.HttpServlet {
     private UniversityDao admin;
 
     public void init() {
