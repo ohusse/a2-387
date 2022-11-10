@@ -230,11 +230,7 @@ public class UniversityDao {
         String queryStudentInfo = "SELECT firstName, lastName, address, email, phoneNum, dob "
                 + "FROM student WHERE studentID = " + studentID + ";";
 
-
-
         int result = 0;
-
-
 
         return result;
     }
