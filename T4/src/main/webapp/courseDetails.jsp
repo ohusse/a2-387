@@ -9,9 +9,9 @@
     <html>
     <head>
         <title>Title</title>
+        <link rel="stylesheet" href="styles/admin.css">
     </head>
             <body>
-            <p>its course details page!!!!!!!!!!!!!! xd</p>
             <div class="container">
                 <h1>Students Enrolled</h1>
                 <table class="table1">

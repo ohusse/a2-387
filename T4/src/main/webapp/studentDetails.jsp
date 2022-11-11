@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>Title</title>
+        <link rel="stylesheet" href="styles/admin.css">
     </head>
     <div class="container">
         <h1>Courses Enrolled</h1>

@@ -10,6 +10,7 @@
         <html>
                     <head>
                         <title>Title</title>
+                        <link rel="stylesheet" href="styles/admin.css">
                     </head>
 
                     <body>
@@ -47,7 +48,7 @@
 
 
                                     <div class="a-div">
-                                        <a href="./createCourse.jsp">Create New Course</a>
+                                        <a href="./createFormServlet">Create New Course</a>
                                     </div>
 
                                 </div>
