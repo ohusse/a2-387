@@ -13,7 +13,6 @@
 </head>
 <body>
     <h1>List of courses</h1>
-    <a href="./createCourse.php">Create New Course</a>
     <table>
         <thead>
         <tr>
@@ -38,11 +37,11 @@
         <%="<td>"%><%=result.getString("days")%><%="</td>"%>
         <%="<td>"%><%=result.getString("startTime")%><%="</td>"%>
         <%="<td>"%><%=result.getString("endTime")%><%="</td>"%>
-        <%="<td>"%> <%=result.getString("room")%><%="</td>"%>
-        <%="<td>"%> <%=result.getString("room")%><%="</td>"%>
-<%--    echo "<td><a href=./courseDetails.php?courseID=" .$row["courseID"]. ">Show Course Details</a></td>"--%>
+        <%="<td>"%><%=result.getString("room")%><%="</td>"%>
+        <%="<td><a href=./courseDetails.jsp?courseID="%><%=result.getString("courseID")%><%=">Show Course Details</a></td>"%>
         <%="</tr>"%> <%}%>
         </tbody>
     </table>
+    <a href="./courseDetails.jsp?hey='xd'">Create New Course</a>
 </body>
 </html>
