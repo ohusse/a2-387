@@ -24,9 +24,8 @@ public class adminServlet extends javax.servlet.http.HttpServlet {
         try {
             ResultSet result = admin.displayAllCourses();
             result.next();
-            String resultString = result.getString("courseCode");
 
-            request.setAttribute("resultString",resultString);
+            request.setAttribute("resultString",result);
             request.getRequestDispatcher("/adminJSP.jsp").forward(request, response);
         } catch (Exception e) {
             // TODO Auto-generated catch block
