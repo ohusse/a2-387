@@ -1,31 +1,32 @@
 package com.example.t4;
 import com.example.t4.Dao.UniversityDao;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
-@WebServlet(name = "bServlet", value = "/bServlet")
-public class bServlet extends javax.servlet.http.HttpServlet {
-    private UniversityDao admin;
+@WebServlet(name = "studentDetailsServlet", value = "/studentDetailsServlet")
+public class studentDetailsServlet extends javax.servlet.http.HttpServlet {
+
+    private UniversityDao studentDetails;
 
     public void init() {
-        admin = new UniversityDao();
+        studentDetails = new UniversityDao();
     }
     @Override
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
-            ResultSet result = admin.displayAdmins();
+            Long studentID = Long.valueOf(request.getParameter("studentID"));
+            ResultSet result = studentDetails.displayStudentCourses(studentID);
             result.next();
-            String result1 = result.getString(1);
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.print("<p>" + result1 + "</p>");
-            out.println("</body></html>");
-
+            request.setAttribute("resultString",result);
+            request.getRequestDispatcher("/studentDetails.jsp").forward(request, response);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

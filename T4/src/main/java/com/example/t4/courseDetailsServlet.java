@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "courseDetailsServlet", value = "/courseDetailsServlet")
 public class courseDetailsServlet extends javax.servlet.http.HttpServlet {
+
     private UniversityDao courseDetails;
 
     public void init() {
@@ -21,9 +22,10 @@ public class courseDetailsServlet extends javax.servlet.http.HttpServlet {
     @Override
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
-            String courseID = request.getParameter("hey");
-            String test = "xdddddddddddddd";
-            request.setAttribute("courseID",test);
+            Long courseID = Long.valueOf(request.getParameter("courseID"));
+            ResultSet result = courseDetails.displayCourseDetails(courseID);
+            result.next();
+            request.setAttribute("resultString",result);
             request.getRequestDispatcher("/courseDetails.jsp").forward(request, response);
 
         } catch (Exception e) {

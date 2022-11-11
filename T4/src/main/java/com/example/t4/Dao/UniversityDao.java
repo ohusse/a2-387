@@ -40,7 +40,7 @@ public class UniversityDao {
     {
         String DISPLAY_COURSEDETAILS_SQL =  "SELECT s.studentID, s.firstName, s.lastName " +
                 "FROM student AS s, classes AS c " +
-                "WHERE s.studentID = c.studentID AND c.courseID = " + courseID +
+                "WHERE s.studentID = c.studentID AND c.courseID =" + courseID +
                 " ORDER BY s.lastName";
 
         ResultSet result = null;
@@ -182,18 +182,18 @@ public class UniversityDao {
     }
 
     //Query for admin verification
-    public ResultSet adminVerification(long adminID,String passwords) throws ClassNotFoundException{
+    public boolean adminVerification(long adminID,String passwords) throws ClassNotFoundException{
         String ADMIN_VERIFICATION_SQL = "SELECT adminID,passwords " +
                 "FROM admin WHERE adminID =" +
                 adminID + " AND passwords =" + passwords;
-        ResultSet result = null;
+        boolean result = false;
         Class.forName("com.mysql.jdbc.Driver");
 
         try{
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(ADMIN_VERIFICATION_SQL);
 
-            result = preparedStatement.executeQuery();
+            result = preparedStatement.execute();
 
         }catch (SQLException e){
             printSQLException(e);
