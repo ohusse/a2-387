@@ -11,21 +11,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
-@WebServlet(name = "adminServlet", value = "/adminServlet")
-public class adminServlet extends javax.servlet.http.HttpServlet {
+@WebServlet(name = "courseDetailsServlet", value = "/courseDetailsServlet")
+public class courseDetailsServlet extends javax.servlet.http.HttpServlet {
 
-    private UniversityDao admin;
+    private UniversityDao courseDetails;
 
     public void init() {
-        admin = new UniversityDao();
+        courseDetails = new UniversityDao();
     }
     @Override
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
-            ResultSet result = admin.displayAllCourses();
+            Long courseID = Long.valueOf(request.getParameter("courseID"));
+            ResultSet result = courseDetails.displayCourseDetails(courseID);
             result.next();
             request.setAttribute("resultString",result);
-            request.getRequestDispatcher("/admin.jsp").forward(request, response);
+            request.getRequestDispatcher("/courseDetails.jsp").forward(request, response);
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

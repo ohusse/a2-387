@@ -1,0 +1,82 @@
+.main-div{
+margin-top: 100px;
+display: flex;
+flex-direction: column;
+height: 800px;
+width: 400px;
+background-color: #F5F1EE;
+box-sizing: border-box;
+box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+border-radius: 18px;
+}
+
+.form-div{
+    padding: 20px;
+}
+
+.form-div h1{
+    margin: 0 0 30px;
+    padding: 10px;
+    color: #1F2434;
+    text-align: center;
+}
+
+.select-div,.text-div, .dob-div, .submit-div{
+    margin: 20px;
+}
+
+select{
+    background-color: #CF4043;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px  rgba(71, 71, 71, 0.5);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+   color: #CF4043;
+}
+input:not(input[type="submit"]){
+    font-size: 16px;
+    width: 98%;
+    padding: 10px 0;
+    color: #1F2434;
+    letter-spacing: 1px;
+    border: none;
+    border-bottom: 1px solid #a3a5ad;
+    outline: none;
+    background: transparent;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+input[type=number] {
+    -webkit-appearance: none;
+  }
+
+.submit-div{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding-top: 30px;
+}
+
+  
+label {
+    letter-spacing: 1px;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1F2434;
+    pointer-events: none;
+  }
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+body {
+  font-family: Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+  font-size:14px;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  background: #F5F1EE;
+}
+
