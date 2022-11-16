@@ -1,5 +1,4 @@
-<%@ page import="static java.lang.System.out" %><%--
-  Created by IntelliJ IDEA.
+Created by IntelliJ IDEA.
   User: ADMIN
   Date: 11/9/2022
   Time: 6:50 PM
@@ -13,6 +12,6 @@
 </head>
 <body>
     <h1>Its Admin Page!</h1>
-        <% %>
+<%--    ${resultString}--%>
 </body>
 </html>
