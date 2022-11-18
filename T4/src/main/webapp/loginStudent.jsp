@@ -14,7 +14,7 @@
 <div class="container">
     <h2>Student Login</h2>
 
-    <form method="post" action="php/studentVerification.php" name="login-form" id="login-form" >
+    <form method="post" action="<%= request.getContextPath() %>/StudentVerificationServlet" name="login-form" id="login-form" >
         <div class="input-div">
             <label for="studentID">Student ID</label>
             <input type="text" name="studentID" id="studentID" >
