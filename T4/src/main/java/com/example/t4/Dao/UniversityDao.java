@@ -201,9 +201,7 @@ public class UniversityDao {
 
     //Query for student verification
     public ResultSet studentVerification(long studentID,String passwords) throws ClassNotFoundException{
-        String STUDENT_VERIFICATION_SQL = "SELECT studentID,passwords " +
-                "FROM admin WHERE adminID =" +
-                studentID + " AND passwords =" + passwords;
+        String STUDENT_VERIFICATION_SQL = "SELECT studentID,passwords FROM student WHERE studentID =" + studentID + " AND passwords ='" + passwords +"';";
         ResultSet result = null;
         Class.forName("com.mysql.jdbc.Driver");
 

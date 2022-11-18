@@ -23,7 +23,6 @@ public class adminServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
             ResultSet result = admin.displayAllCourses();
-            result.next();
             request.setAttribute("resultString",result);
             request.getRequestDispatcher("/admin.jsp").forward(request, response);
         } catch (Exception e) {

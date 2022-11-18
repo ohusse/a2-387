@@ -1,4 +1,6 @@
 package com.example.t4;
+import com.example.t4.Bean.Course;
+import com.example.t4.Dao.StudentDAO;
 import com.example.t4.Dao.UniversityDao;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
@@ -14,43 +16,39 @@ import java.sql.ResultSet;
 @WebServlet(name = "studentServlet", value = "/studentServlet")
 public class studentServlet extends javax.servlet.http.HttpServlet {
 
-    private UniversityDao studentVerificaton;
+    private StudentDAO studentDAO;
 
-    public void init() {
-        studentVerificaton = new UniversityDao();
-    }
-    @Override
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    public void init() {studentDAO = new StudentDAO();}
 
-    }
 
     @Override
-    protected void doPost(javax.servlet.http.HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
+            throws javax.servlet.ServletException, IOException {
+        HttpSession session = request.getSession();
+        long studentID = (long) session.getAttribute("studentID");
+
         try {
-            HttpSession session = request.getSession();
+            // displayStudentInfo
+            ResultSet studentInfoSet = studentDAO.displayStudentInfo(studentID);
+            studentInfoSet.next();
+            request.setAttribute("studentInfo", studentInfoSet);
 
-            Long studentID = Long.valueOf(request.getParameter("studentID"));
-            String password = request.getParameter("password");
-            ResultSet result = studentVerificaton.studentVerification(studentID,password);
+            // displayClassesTaken
+            ResultSet classesTakenSet = studentDAO.displayClassesTaken(studentID);
+            request.setAttribute("classesTaken", classesTakenSet);
+            request.setAttribute("studentID",studentID);
 
-            session.setAttribute("studentID", studentID);
-
-            if(result.next()){
-                response.sendRedirect("studentServlet");
-            }
-            else{
-                PrintWriter out = response.getWriter();
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<body>");
-                out.println("<p>Incorrect username or password! Please try again</p>");
-                out.println("</body>");
-                out.println("</html>");
-            }
-
+            request.getRequestDispatcher("/studentJSP.jsp").forward(request, response);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    // dropClass
+    @Override
+    protected void doPost(javax.servlet.http.HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 }
