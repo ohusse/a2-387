@@ -64,7 +64,7 @@ public class UniversityDao {
         return result;
     }
 
-    //displays the courses a given student is enrolled
+    //displays the courses a given student is enrolledServlet
     public ResultSet displayStudentCourses(long studentID) throws ClassNotFoundException
     {
         String DISPLAY_STUDENTCOURSES_SQL = "SELECT c.courseCode, c.days, c.startTime, c.endTime, c.title, c.room, a.firstName, a.lastName, s.season, s.year " +
@@ -94,16 +94,14 @@ public class UniversityDao {
 
     //inserts course into database
     public int registerCourse(Course course) throws ClassNotFoundException {
-        String INSERT_COURSE_SQL = "INSERT INTO employee" +
-                "  (courseID, courseCode, adminID, semesterID, days, startTime, endTime, title, room) VALUES " +
-                " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String INSERT_COURSE_SQL = "INSERT INTO admin" +
+                "  (courseCode, adminID, semesterID, days, startTime, endTime, title, room) VALUES " +
+                " (?, ?, ?, ?, ?, ?, ?, ?);";
 
         int result = 0;
         Class.forName("com.mysql.jdbc.Driver");
-        //Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_COURSE_SQL)) {
@@ -255,7 +253,7 @@ public class UniversityDao {
              PreparedStatement preparedStatement1 = connection.prepareStatement(queryAddCourseStudent)) {
 
             String countCurrentEnrolled = "SELECT * FROM classes WHERE courseID = ? AND studentID = ?;";
-            // Need to count current enrolled rows
+            // Need to count current enrolledServlet rows
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(countCurrentEnrolled);
             rs.last();

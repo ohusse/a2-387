@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 public class StudentDAO {
@@ -85,7 +87,10 @@ public class StudentDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(queryGetEndDate);
             resultSet = preparedStatement.executeQuery();
 
-            Date endDate = resultSet.getDate(1);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String endDateString = String.valueOf(resultSet.getRow());
+            Date endDate = format.parse(endDateString);
+            //Date endDate = resultSet.getDate(1);
             long endDateMillis = endDate.getTime();
             long currentMillis = System.currentTimeMillis();
             long diffMillis = endDateMillis - currentMillis;
@@ -97,10 +102,11 @@ public class StudentDAO {
         } catch (SQLException e) {
             // process sql exception
             printSQLException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
-
     // 4. View course catalogue of classes NOT being taken by the student
     public ResultSet displayCoursesNotTaken(long studentID) throws ClassNotFoundException {
         String nestedQuery = "SELECT courseID from classes WHERE studentID = " + studentID;

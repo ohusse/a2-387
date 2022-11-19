@@ -48,7 +48,7 @@
 
 
                                     <div class="a-div">
-                                        <a href="./createFormServlet">Create New Course</a>
+                                        <a href="./createCourseServlet">Create New Course</a>
                                     </div>
 
                                 </div>
