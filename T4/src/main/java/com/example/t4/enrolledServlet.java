@@ -61,5 +61,3 @@ public class enrolledServlet extends javax.servlet.http.HttpServlet {
         response.sendRedirect("studentClassRegistrationServlet");
     }
 }
-
-//enrolledServlet

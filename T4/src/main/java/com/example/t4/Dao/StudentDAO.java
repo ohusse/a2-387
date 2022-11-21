@@ -86,11 +86,11 @@ public class StudentDAO {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryGetEndDate);
             resultSet = preparedStatement.executeQuery();
+            resultSet.next();
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            String endDateString = String.valueOf(resultSet.getRow());
+            String endDateString = String.valueOf(resultSet.getDate("endDate"));
             Date endDate = format.parse(endDateString);
-            //Date endDate = resultSet.getDate(1);
             long endDateMillis = endDate.getTime();
             long currentMillis = System.currentTimeMillis();
             long diffMillis = endDateMillis - currentMillis;
@@ -185,8 +185,11 @@ public class StudentDAO {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryGetEndDate);
             resultSet = preparedStatement.executeQuery();
+            resultSet.next();
 
-            Date startDate = resultSet.getDate(1);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String startDateString = String.valueOf(resultSet.getDate("startDate"));
+            Date startDate = format.parse(startDateString);
             long startDateMillis = startDate.getTime();
             long currentMillis = System.currentTimeMillis();
             long diffMillis = currentMillis - startDateMillis;
@@ -198,6 +201,8 @@ public class StudentDAO {
         } catch (SQLException e) {
             // process sql exception
             printSQLException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
