@@ -1,11 +1,17 @@
 <%@ page import="java.sql.ResultSet" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/admin.css">
+    <title>Welcome</title>
 </head>
 <body>
+<div class="container">
 <h1>Course Catalogue</h1>
 <form action="<%= request.getContextPath() %>/enrolledServlet" method="post">
     <table>
@@ -45,7 +51,9 @@
         <%}%>
     </table>
 </form>
-<br />
-<a href="./studentServlet">Student Profile</a>
+    <div class="a-div"><a href="./studentServlet">Student Profile</a></div>
+</div>
+
+
 </body>
 </html>

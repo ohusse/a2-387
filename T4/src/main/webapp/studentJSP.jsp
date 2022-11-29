@@ -1,26 +1,27 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/admin.css">
+    <title>Welcome</title>
 </head>
 <body>
-    <h1>Student Information</h1>
+<div class="container1">
+<h1>Student Information</h1>
+<% ResultSet studentInfoSet = (ResultSet) request.getAttribute("studentInfo");%>
+<p>FIRST NAME: <%=studentInfoSet.getString("firstName")%></p>
+<p>LAST NAME: <%=studentInfoSet.getString("lastName")%></p>
+<p>ADDRESS: <%=studentInfoSet.getString("address")%></p>
+<p>EMAIL: <%=studentInfoSet.getString("email")%></p>
+<p>PHONE: <%=studentInfoSet.getString("phoneNum")%></p>
+<p>DATE OF BIRTH: <%=studentInfoSet.getString("dob")%></p>
+</div>
 
-    <% ResultSet studentInfoSet = (ResultSet) request.getAttribute("studentInfo");%>
-
-    <p>FIRST NAME: <%=studentInfoSet.getString("firstName")%></p>
-    <p>LAST NAME: <%=studentInfoSet.getString("lastName")%></p>
-    <p>ADDRESS: <%=studentInfoSet.getString("address")%></p>
-    <p>EMAIL: <%=studentInfoSet.getString("email")%></p>
-    <p>PHONE: <%=studentInfoSet.getString("phoneNum")%></p>
-    <p>DATE OF BIRTH: <%=studentInfoSet.getString("dob")%></p>
-
-
-    <br />
+    <div class="container1">
 <h1>Drop Classes Being Taken</h1>
-
-
 <form action="<%= request.getContextPath() %>/dropClassServlet" method="post">
     <table>
         <thead>
@@ -60,7 +61,10 @@
         <%}%>
     </table>
 </form>
-<br />
-<a href="./studentClassRegistrationServlet">Class Registration</a>
+    <div class="a-div">
+        <a href="./studentClassRegistrationServlet">Class Registration</a>
+    </div>
+
+</div>
 </body>
 </html>

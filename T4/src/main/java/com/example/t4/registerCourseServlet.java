@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.Random;
 
 @WebServlet(name = "registerCourseServlet", value = "/registerCourseServlet")
 public class registerCourseServlet extends javax.servlet.http.HttpServlet {
@@ -27,7 +28,11 @@ public class registerCourseServlet extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(javax.servlet.http.HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int minNum = 0;
+        int maxNum = 100000;
+        long random_int = (long)Math.floor(Math.random()*(maxNum-minNum+1)+minNum);
 
+        long courseID = random_int;
         String courseCode = request.getParameter("courseCode");
         long adminID = Long.parseLong(request.getParameter("adminID"));
         int semesterID = Integer.parseInt(request.getParameter("semesterID"));
@@ -38,6 +43,7 @@ public class registerCourseServlet extends javax.servlet.http.HttpServlet {
         String room = request.getParameter("room");
 
         Course course = new Course();
+        course.setCourseID(courseID);
         course.setCourseCode(courseCode);
         course.setAdminID(adminID);
         course.setSemesterID(semesterID);
@@ -54,7 +60,7 @@ public class registerCourseServlet extends javax.servlet.http.HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("admin.jsp");
+        response.sendRedirect("adminServlet");
     }
 }
 

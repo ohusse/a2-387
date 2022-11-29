@@ -94,9 +94,9 @@ public class UniversityDao {
 
     //inserts course into database
     public int registerCourse(Course course) throws ClassNotFoundException {
-        String INSERT_COURSE_SQL = "INSERT INTO admin" +
-                "  (courseCode, adminID, semesterID, days, startTime, endTime, title, room) VALUES " +
-                " (?, ?, ?, ?, ?, ?, ?, ?);";
+        String INSERT_COURSE_SQL = "INSERT INTO course" +
+                "  (courseID, courseCode, adminID, semesterID, days, startTime, endTime, title, room) VALUES " +
+                " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         int result = 0;
         Class.forName("com.mysql.jdbc.Driver");

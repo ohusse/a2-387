@@ -28,7 +28,7 @@ body {
   flex-direction: column;
   margin-top: 100px;
   width: 1200px;
-  height: 600px;
+  height: 1200px;
   background: #1F2434;
   border-radius: 18px;
   text-align: center;
@@ -67,6 +67,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 25px  rgba(71, 71, 71, 0.5);
 }
+
 
 .button{
   background: transparent;
@@ -160,3 +161,4 @@ a{
   text-align: center;
 
 }
+

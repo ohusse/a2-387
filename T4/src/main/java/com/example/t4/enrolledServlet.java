@@ -30,7 +30,6 @@ public class enrolledServlet extends javax.servlet.http.HttpServlet {
 
         HttpSession session = request.getSession();
         long studentID = (long) session.getAttribute("studentID");
-
         long courseID = Long.parseLong(request.getParameter("courseID"));
         String courseCode = request.getParameter("courseCode");
         long adminID = Long.parseLong(request.getParameter("adminID"));

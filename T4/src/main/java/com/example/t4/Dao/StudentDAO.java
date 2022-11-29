@@ -140,7 +140,7 @@ public class StudentDAO {
             preparedStatement.setLong(1, course.getCourseID());
 
             long courseID = course.getCourseID();
-            if(checkEnrollDate(courseID) && checkEnrolledFive(studentID))
+            if(checkEnrollDate(courseID) || checkEnrolledFive(studentID))
                 result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             // process sql exception
