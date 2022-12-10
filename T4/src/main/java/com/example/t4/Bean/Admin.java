@@ -1,9 +1,8 @@
 package com.example.t4.Bean;
-
 import java.io.Serializable;
 import java.util.Date;
 
-public class Admin implements Serializable {
+public class Admin extends Person implements Serializable {
     private long adminID;
     private String firstName;
     private String lastName;

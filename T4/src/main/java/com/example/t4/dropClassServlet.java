@@ -4,17 +4,14 @@ import com.example.t4.Dao.StudentDAO;
 import com.example.t4.Dao.UniversityDao;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
 @WebServlet(name = "dropClassServlet", value = "/dropClassServlet")
-public class dropClassServlet extends javax.servlet.http.HttpServlet {
+public class dropClassServlet extends jakarta.servlet.http.HttpServlet {
 
     private StudentDAO studentDAO;
 
@@ -22,14 +19,14 @@ public class dropClassServlet extends javax.servlet.http.HttpServlet {
 
 
     @Override
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
-            throws javax.servlet.ServletException, IOException {
+    protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
+            throws jakarta.servlet.ServletException, IOException {
 
     }
 
     // dropClass
     @Override
-    protected void doPost(javax.servlet.http.HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();

@@ -1,26 +1,22 @@
 package com.example.t4.Bean;
-
-import java.io.Serializable;
 import java.util.Date;
 
-
-public class Student extends Person implements Serializable {
-    private long studentID;
+public class  Person {
+    private long ID;
     private String firstName;
     private String lastName;
     private String address;
     private String email;
     private long phoneNum;
     private Date dob;
-    private String passwords;
 
 
-    public long getStudentID() {
-        return studentID;
+    public long getID() {
+        return ID;
     }
 
-    public void setStudentID(long studentID) {
-        this.studentID = studentID;
+    public void setID(long ID) {
+        this.ID = ID;
     }
 
     public String getFirstName() {
@@ -69,13 +65,5 @@ public class Student extends Person implements Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
-    }
-
-    public String getPasswords() {
-        return passwords;
-    }
-
-    public void setPasswords(String passwords) {
-        this.passwords = passwords;
     }
 }
