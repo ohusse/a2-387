@@ -190,6 +190,7 @@ public class StudentDAO {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String startDateString = String.valueOf(resultSet.getDate("startDate"));
             Date startDate = format.parse(startDateString);
+
             long startDateMillis = startDate.getTime();
             long currentMillis = System.currentTimeMillis();
             long diffMillis = currentMillis - startDateMillis;

@@ -264,7 +264,7 @@ public class UniversityDao {
             // Need query to access semester start date
             String accessStartDate = "SELECT startDate FROM semester WHERE semesterID = " + semesterID + ";";
 
-            preparedStatement1.setLong(1, student.getStudentID());
+            preparedStatement1.setLong(1, student.getID());
             preparedStatement1.setLong(2, course.getCourseID());
             System.out.println(preparedStatement1);
 
@@ -290,7 +290,7 @@ public class UniversityDao {
         try (Connection connection = DriverManager.getConnection("", "", "");
              PreparedStatement preparedStatement1 = connection.prepareStatement(queryDropCourse)) {
             preparedStatement1.setLong(1, course.getCourseID());
-            preparedStatement1.setLong(2, student.getStudentID());
+            preparedStatement1.setLong(2, student.getID());
             System.out.println(preparedStatement1);
             result = preparedStatement1.executeUpdate();
         } catch (SQLException e) {

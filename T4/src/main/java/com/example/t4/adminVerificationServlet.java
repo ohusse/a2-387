@@ -1,5 +1,7 @@
 package com.example.t4;
+import com.example.t4.Bean.Person;
 import com.example.t4.Dao.UniversityDao;
+import com.example.t4.Dao.studentMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
