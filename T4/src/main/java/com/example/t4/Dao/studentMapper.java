@@ -7,7 +7,7 @@ import com.example.t4.Bean.Student;
 import java.sql.*;
 import java.util.Date;
 
-public class    studentMapper {
+public class studentMapper {
 
     public ResultSet findStudent(long id) throws ClassNotFoundException {
         String FIND_STUDENT = "SELECT studentID, firstName, lastName FROM student, person WHERE studentID =" + id +" AND studentID = ID;";
@@ -33,7 +33,7 @@ public class    studentMapper {
         return result;
     }
 
-    public int insertStudent(Person person) throws ClassNotFoundException
+    public int insertPerson(Person person) throws ClassNotFoundException
     {
         String INSERT_PERSON_SQL = "INSERT INTO person" +
                 "  (firstName, lastName, address, email, phoneNum, dob, passwords) VALUES " +
@@ -71,6 +71,33 @@ public class    studentMapper {
         }
         return result;
     }
+
+    public int insertStudent() throws ClassNotFoundException {
+
+
+        String INSERT_STUDENT_SQL =  "INSERT INTO student (studentID) VALUES SELECT MAX(id) FROM person;";
+
+        int result = 0;
+        Class.forName("com.mysql.jdbc.Driver");
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+
+             // Step 2:Create a statement using connection object
+
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENT_SQL)) {
+
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            result = preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            // process sql exception
+            printSQLException(e);
+        }
+        return result;
+    }
+
 
     public int updateStudent(Person person) throws ClassNotFoundException {
 
