@@ -17,10 +17,11 @@ public class inheritanceMapper {
 
     public void test() throws ClassNotFoundException {
         LocalDate localDate = Date.valueOf("2004-01-10").toLocalDate();
-        Person person = new Person(1,"Abraham", "Linclon", "1222 rue Gilford", "abra@yahoo.com",
+        Person person = new Person(10000019,"Chris", "Columbus", "1222 rue Gilford", "chris.col@yahoo.com",
                 4387778888L, localDate,"lookitsayellowtree");
-        admin.insertPerson(person);
-        //updateStudent(person);
+        //admin.insertPerson(person);
+
+        admin.deleteAdmin(10000007);
     }
 
 

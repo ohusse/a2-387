@@ -7,6 +7,7 @@ import java.sql.*;
 public class adminMapper {
 
     public ResultSet findAdmin(long id) throws ClassNotFoundException {
+
         String FIND_ADMIN = "SELECT adminID, firstName, lastName FROM admin, person WHERE adminID =" + id +" AND adminID = ID;";
 
         ResultSet result = null;
@@ -120,6 +121,24 @@ public class adminMapper {
             printSQLException(e);
         }
         return result;
+    }
+
+    public void deleteAdmin(long ID) throws ClassNotFoundException {
+        String deleteQuery = "DELETE FROM admin WHERE adminID = " + ID + ";";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        //Class.forName("com.mysql.jdbc.Driver");
+
+        try
+        {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e)
+        {
+            // process sql exception
+            printSQLException(e);
+        }
     }
 
     private void printSQLException(SQLException ex) {

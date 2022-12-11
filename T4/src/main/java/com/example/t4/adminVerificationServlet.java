@@ -22,15 +22,13 @@ public class adminVerificationServlet extends jakarta.servlet.http.HttpServlet {
 
     private UniversityDao adminVerificaton;
     private inheritanceMapper mapper;
-//    private studentMapper student;
-//    private adminMapper admin;
+;
 
 
     public void init() {
         adminVerificaton = new UniversityDao();
         mapper = new inheritanceMapper();
-//        student = new studentMapper();
-//        admin = new adminMapper();
+
     }
     @Override
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, IOException {
@@ -46,17 +44,7 @@ public class adminVerificationServlet extends jakarta.servlet.http.HttpServlet {
             ResultSet result = adminVerificaton.adminVerification(adminID,password);
 
             mapper.test();
-//
-//
-//
-//            LocalDate localDate = Date.valueOf("2004-01-10").toLocalDate();
-//
-//
-//            Person person = new Person(1,"Abraham", "Linclon", "1222 rue Gilford", "abra@yahoo.com",
-//                    4387778888L, localDate,"lookitsayellowtree");
-//
-//            admin.insertPerson(person);
-//            //updateStudent(person);
+
 
             if(result.next()){
                 response.sendRedirect("adminServlet");

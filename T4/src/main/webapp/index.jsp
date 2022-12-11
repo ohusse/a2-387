@@ -20,6 +20,7 @@
             <div class="a-div">
                 <a href="loginAdmin.jsp">Admin</a>
                 <a href="loginStudent.jsp">Student</a>
+                <a href="./testServlet">Test</a>
             </div>
         </div>
 
