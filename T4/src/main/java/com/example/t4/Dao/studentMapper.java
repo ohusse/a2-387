@@ -5,7 +5,7 @@ import com.example.t4.Bean.Person;
 import com.example.t4.Bean.Student;
 
 import java.sql.*;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class studentMapper {
 
@@ -38,11 +38,11 @@ public class studentMapper {
         String INSERT_PERSON_SQL = "INSERT INTO person" +
                 "  (firstName, lastName, address, email, phoneNum, dob, passwords) VALUES " +
                 " (?, ?, ?, ?, ?, ?, ?);";
-
+        java.sql.Date sqlDate = java.sql.Date.valueOf(person.getDob() );
         int result = 0;
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
              // Step 2:Create a statement using connection object
 
@@ -52,7 +52,7 @@ public class studentMapper {
             preparedStatement.setString(3, person.getAddress());
             preparedStatement.setString(4, person.getEmail());
             preparedStatement.setLong(5, person.getPhoneNum());
-            preparedStatement.setObject(6, person.getDob());
+            preparedStatement.setDate(6, sqlDate);
             preparedStatement.setString(7, person.getPasswords());
 
 
@@ -60,10 +60,7 @@ public class studentMapper {
             // Step 3: Execute the query or update query
             result = preparedStatement.executeUpdate();
 
-            String personToStudent =  "INSERT INTO student (studentID) VALUES SELECT MAX(id) FROM person;";
-            PreparedStatement preparedStatement1 = connection.prepareStatement(INSERT_PERSON_SQL);
-
-            result = preparedStatement1.executeUpdate();
+            this.insertStudent();
 
         } catch (SQLException e) {
             // process sql exception
@@ -75,12 +72,12 @@ public class studentMapper {
     public int insertStudent() throws ClassNotFoundException {
 
 
-        String INSERT_STUDENT_SQL =  "INSERT INTO student (studentID) VALUES SELECT MAX(id) FROM person;";
+        String INSERT_STUDENT_SQL =  "INSERT INTO student (studentID) SELECT MAX(id) FROM person;";
 
         int result = 0;
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
              // Step 2:Create a statement using connection object
 
@@ -101,19 +98,21 @@ public class studentMapper {
 
     public int updateStudent(Person person) throws ClassNotFoundException {
 
+        java.sql.Date sqlDate = java.sql.Date.valueOf(person.getDob() );
+
         String UPDATE_PERSON_SQL = "UPDATE person SET firstName = '"+ person.getFirstName() +"', " +
                 "lastName = '" + person.getLastName() + "', " +
                 "address = '"+ person.getAddress() +"', " +
                 "email = '"+ person.getEmail() +"', " +
                 "phoneNum = "+ person.getPhoneNum() +", " +
-                "dob = "+ person.getDob() +", " +
+                "dob = '"+ sqlDate +"', " +
                 "passwords = '"+ person.getPasswords() +"' " +
                 "WHERE ID = "+ person.getID() +";";
 
         int result = 0;
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
              // Step 2:Create a statement using connection object
 

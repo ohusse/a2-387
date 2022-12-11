@@ -1,6 +1,6 @@
 package com.example.t4.Bean;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class  Person {
     private long ID;

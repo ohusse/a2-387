@@ -1,8 +1,8 @@
 package com.example.t4.Bean;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 public class Student extends Person implements Serializable {

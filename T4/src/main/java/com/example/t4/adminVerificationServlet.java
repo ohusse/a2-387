@@ -1,6 +1,8 @@
 package com.example.t4;
 import com.example.t4.Bean.Person;
 import com.example.t4.Dao.UniversityDao;
+import com.example.t4.Dao.adminMapper;
+import com.example.t4.Dao.inheritanceMapper;
 import com.example.t4.Dao.studentMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -9,7 +11,9 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -17,12 +21,16 @@ import java.time.Month;
 public class adminVerificationServlet extends jakarta.servlet.http.HttpServlet {
 
     private UniversityDao adminVerificaton;
-    private studentMapper student;
+    private inheritanceMapper mapper;
+//    private studentMapper student;
+//    private adminMapper admin;
 
 
     public void init() {
         adminVerificaton = new UniversityDao();
-        student = new studentMapper();
+        mapper = new inheritanceMapper();
+//        student = new studentMapper();
+//        admin = new adminMapper();
     }
     @Override
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, IOException {
@@ -37,11 +45,18 @@ public class adminVerificationServlet extends jakarta.servlet.http.HttpServlet {
             String password = request.getParameter("password");
             ResultSet result = adminVerificaton.adminVerification(adminID,password);
 
-            Person person = new Person(10000015,"Chris", "David", "1222 rue Gilford", "chris@yahoo.com",
-                    4387778888L, LocalDate.of(2004, Month.DECEMBER,9),"lookitsayellowtree");
-
-            student.insertPerson(person);
-            student.insertStudent();
+            mapper.test();
+//
+//
+//
+//            LocalDate localDate = Date.valueOf("2004-01-10").toLocalDate();
+//
+//
+//            Person person = new Person(1,"Abraham", "Linclon", "1222 rue Gilford", "abra@yahoo.com",
+//                    4387778888L, localDate,"lookitsayellowtree");
+//
+//            admin.insertPerson(person);
+//            //updateStudent(person);
 
             if(result.next()){
                 response.sendRedirect("adminServlet");
