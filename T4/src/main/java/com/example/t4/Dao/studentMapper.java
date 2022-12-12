@@ -127,6 +127,24 @@ public class studentMapper {
         return result;
     }
 
+    public void deleteStudent(long ID) throws ClassNotFoundException {
+        String deleteStudentQuery = "DELETE FROM student WHERE studentID = " + ID +";";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        //Class.forName("com.mysql.jdbc.Driver");
+
+        try
+        {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStudentQuery);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e)
+        {
+            // process sql exception
+            printSQLException(e);
+        }
+    }
+
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {

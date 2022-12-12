@@ -22,7 +22,7 @@ public class studentDetailsServlet extends jakarta.servlet.http.HttpServlet {
     @Override
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, IOException {
         try {
-            Long studentID = Long.valueOf(request.getParameter("studentID"));
+            Long studentID = Long.valueOf(request.getParameter("ID"));
             ResultSet result = studentDetails.displayStudentCourses(studentID);
             result.next();
             request.setAttribute("resultString",result);

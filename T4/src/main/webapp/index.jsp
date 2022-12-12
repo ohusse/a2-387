@@ -10,7 +10,7 @@
         <title>Welcome</title>
     </head>
         <body>
-
+        <a href="./testServlet" class="someA">Test</a>
         <div class="container">
 
             <div class="p-div">
@@ -20,10 +20,10 @@
             <div class="a-div">
                 <a href="loginAdmin.jsp">Admin</a>
                 <a href="loginStudent.jsp">Student</a>
-                <a href="./testServlet">Test</a>
             </div>
+
         </div>
 
         </body>
-</body>
+
 </html>

@@ -10,9 +10,11 @@ public class UniversityDao {
     //displays the information of all the courses in the database
     public ResultSet displayAllCourses() throws ClassNotFoundException
     {
-        String DISPLAY_ALLCOURSES_SQL = "SELECT c.courseID, c.courseCode, c.days, c.startTime, c.endTime, c.title, c.room, a.firstName, a.lastName, s.season, s.year " +
-                "FROM course AS c, admin AS a, semester AS s " +
-                "WHERE c.adminID = a.adminID AND c.semesterID = s.semesterID";
+        String DISPLAY_ALLCOURSES_SQL = "SELECT c.courseCode, c.title, p.firstName, s.season, c.days, c.startTime, c.endTime,  c.room,  c.courseID "
+                + "FROM course AS c "
+                + "INNER JOIN person AS p ON c.adminID = p.ID "
+                + "INNER JOIN semester AS s ON c.semesterID - s.semesterID "
+                + "INNER JOIN admin AS a ON a.adminID = p.ID;";
 
         ResultSet result = null;
 
@@ -21,7 +23,7 @@ public class UniversityDao {
 
         try
         {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
             PreparedStatement preparedStatement = connection.prepareStatement(DISPLAY_ALLCOURSES_SQL);
             result = preparedStatement.executeQuery();
@@ -38,10 +40,11 @@ public class UniversityDao {
     //displays the information of a given course
     public ResultSet displayCourseDetails(long courseID) throws ClassNotFoundException
     {
-        String DISPLAY_COURSEDETAILS_SQL =  "SELECT s.studentID, s.firstName, s.lastName " +
-                "FROM student AS s, classes AS c " +
-                "WHERE s.studentID = c.studentID AND c.courseID =" + courseID +
-                " ORDER BY s.lastName";
+        String DISPLAY_COURSEDETAILS_SQL = "SELECT p.ID, p.firstName, p.lastName "
+                + "FROM person AS p "
+                + "INNER JOIN classes AS c ON c.studentID = p.ID "
+                + "INNER JOIN student AS s ON s.studentID = p.ID "
+                + "WHERE c.courseID = " + courseID + ";";
 
         ResultSet result = null;
 
@@ -50,7 +53,7 @@ public class UniversityDao {
 
         try
         {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
             PreparedStatement preparedStatement = connection.prepareStatement(DISPLAY_COURSEDETAILS_SQL );
             result = preparedStatement.executeQuery();
@@ -67,9 +70,14 @@ public class UniversityDao {
     //displays the courses a given student is enrolledServlet
     public ResultSet displayStudentCourses(long studentID) throws ClassNotFoundException
     {
-        String DISPLAY_STUDENTCOURSES_SQL = "SELECT c.courseCode, c.days, c.startTime, c.endTime, c.title, c.room, a.firstName, a.lastName, s.season, s.year " +
-                "FROM course AS c, admin AS a, semester AS s, classes AS cl " +
-                "WHERE cl.studentID = " + studentID + " AND cl.courseID = c.courseID AND c.adminID = a.adminID AND c.semesterID = s.semesterID";
+        String DISPLAY_STUDENTCOURSES_SQL =
+                "SELECT j.courseCode, j.days, j.startTime, j.endTime, j.title, j.room, j.firstName, j.lastName, j.season, j.year "
+                        + "(SELECT c.courseCode, c.days, c.startTime, c.endTime, c.title, c.room, p.firstName, p.lastName, s.season, s.year, c.courseID, cl.studentID "
+                        + "FROM course AS c "
+                        + "INNER JOIN person AS p ON c.adminID = p.ID "
+                        + "INNER JOIN semester AS s ON s.semesterID = c.semesterID "
+                        + "INNER JOIN classes as cl ON cl.courseID = c.courseID) AS j "
+                        + "WHERE j.studentID = " + studentID + ";";
 
         ResultSet result = null;
 
@@ -78,7 +86,7 @@ public class UniversityDao {
 
         try
         {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
             PreparedStatement preparedStatement = connection.prepareStatement(DISPLAY_STUDENTCOURSES_SQL );
             result = preparedStatement.executeQuery();
@@ -101,7 +109,7 @@ public class UniversityDao {
         int result = 0;
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_COURSE_SQL)) {
@@ -139,7 +147,7 @@ public class UniversityDao {
 
         try
         {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
             PreparedStatement preparedStatement = connection.prepareStatement(DISPLAY_SEMESTERS_SQL);
             result = preparedStatement.executeQuery();
@@ -156,7 +164,9 @@ public class UniversityDao {
     //displays all admins for drop down menu
     public ResultSet displayAdmins() throws ClassNotFoundException
     {
-        String DISPLAY_ADMINS_SQL = "SELECT adminID, firstName, lastName FROM admin";
+        String DISPLAY_ADMINS_SQL = "SELECT ID, firstName, lastName "
+                + "FROM person "
+                + "INNER JOIN admin ON admin.adminID = person.ID;";
 
         ResultSet result = null;
 
@@ -165,7 +175,7 @@ public class UniversityDao {
 
         try
         {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
 
             PreparedStatement preparedStatement = connection.prepareStatement(DISPLAY_ADMINS_SQL);
             result = preparedStatement.executeQuery();
@@ -181,13 +191,17 @@ public class UniversityDao {
 
     //Query for admin verification
     public ResultSet adminVerification(long adminID,String passwords) throws ClassNotFoundException{
-        String ADMIN_VERIFICATION_SQL = "SELECT adminID,passwords FROM admin WHERE adminID =" + adminID + " AND passwords ='" + passwords +"';";
+        String ADMIN_VERIFICATION_SQL = "SELECT person.ID, person.passwords "
+                + "FROM person "
+                + "INNER JOIN admin ON admin.adminID = person.ID "
+                + "WHERE person.ID = " + adminID + " AND person.passwords = '" + passwords + "';";
+
 
         ResultSet result = null;
         Class.forName("com.mysql.jdbc.Driver");
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(ADMIN_VERIFICATION_SQL);
             result = preparedStatement.executeQuery();
 
@@ -199,12 +213,15 @@ public class UniversityDao {
 
     //Query for student verification
     public ResultSet studentVerification(long studentID,String passwords) throws ClassNotFoundException{
-        String STUDENT_VERIFICATION_SQL = "SELECT studentID,passwords FROM student WHERE studentID =" + studentID + " AND passwords ='" + passwords +"';";
+        String STUDENT_VERIFICATION_SQL = "SELECT person.ID, person.passwords "
+                + "FROM person "
+                + "INNER JOIN student ON student.studentID = person.ID "
+                + "WHERE person.ID = " + studentID + " AND person.passwords = '" + passwords + "';";
         ResultSet result = null;
         Class.forName("com.mysql.jdbc.Driver");
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(STUDENT_VERIFICATION_SQL);
 
             result = preparedStatement.executeQuery();
@@ -213,89 +230,6 @@ public class UniversityDao {
             printSQLException(e);
         }
 
-        return result;
-    }
-
-    // PUT SABRINA's PART HERE
-
-    // 1. View student info
-    public int getStudentInfo(int studentID) throws SQLException {
-        String queryStudentInfo = "SELECT firstName, lastName, address, email, phoneNum, dob "
-                + "FROM student WHERE studentID = " + studentID + ";";
-
-        int result = 0;
-
-        return result;
-    }
-
-    // 2. View course catalogue
-    public int getSemesterCourseCatalogue(int semesterID) throws SQLException {
-        String querySemesterCourseCatalogue = "SELECT courseID, courseCode, adminID, days, startHour, startMinute, endHour, endMinute, title, room "
-                + "FROM course WHERE semesterID = " + semesterID + ";";
-
-        int result = 0;
-
-        return result;
-    }
-
-    // 3. Add course (considering date & limit)
-    public int addCourseToStudent(Course course, Student student) throws ClassNotFoundException {
-        String queryAddCourseStudent = "INSERT INTO classes "
-                + "(studentID, courseID) "
-                + "VALUES (?, ?);";
-
-
-        int result = 0;
-
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager.getConnection("", "", "");
-             PreparedStatement preparedStatement1 = connection.prepareStatement(queryAddCourseStudent)) {
-
-            String countCurrentEnrolled = "SELECT * FROM classes WHERE courseID = ? AND studentID = ?;";
-            // Need to count current enrolledServlet rows
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(countCurrentEnrolled);
-            rs.last();
-            int currentlyTaking = rs.getRow();
-
-            long dateNow = System.currentTimeMillis();
-            int semesterID = course.getSemesterID();
-            // Need query to access semester start date
-            String accessStartDate = "SELECT startDate FROM semester WHERE semesterID = " + semesterID + ";";
-
-            preparedStatement1.setLong(1, student.getID());
-            preparedStatement1.setLong(2, course.getCourseID());
-            System.out.println(preparedStatement1);
-
-            if(currentlyTaking < 5) {
-                result = preparedStatement1.executeUpdate();
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return result;
-    }
-
-    // 4. Drop course (considering date)
-    public int dropCourse(Course course, Student student) throws ClassNotFoundException {
-
-        String queryDropCourse = "DELETE FROM classes "
-                + "WHERE courseID = ? AND studentID = ?;";
-
-        int result = 0;
-
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager.getConnection("", "", "");
-             PreparedStatement preparedStatement1 = connection.prepareStatement(queryDropCourse)) {
-            preparedStatement1.setLong(1, course.getCourseID());
-            preparedStatement1.setLong(2, student.getID());
-            System.out.println(preparedStatement1);
-            result = preparedStatement1.executeUpdate();
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
         return result;
     }
 

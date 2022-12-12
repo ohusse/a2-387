@@ -22,18 +22,15 @@ public class testServlet extends jakarta.servlet.http.HttpServlet {
 
     private inheritanceMapper mapper;
 
-
-
     public void init() {
         mapper = new inheritanceMapper();
-
     }
+
     @Override
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, IOException {
         try {
 
-            mapper.test();
-
+            mapper.execute();
             PrintWriter out = response.getWriter();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -41,6 +38,7 @@ public class testServlet extends jakarta.servlet.http.HttpServlet {
             out.println("<p>Query executed. Check database</p>");
             out.println("</body>");
             out.println("</html>");
+
 
 
         } catch (Exception e) {

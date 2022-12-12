@@ -14,12 +14,12 @@ public class StudentDAO {
     // 1. Display student info
     public ResultSet displayStudentInfo(long studentID) throws SQLException, ClassNotFoundException {
         String queryStudentInfo = "SELECT firstName, lastName, address, email, phoneNum, dob "
-                + "FROM student WHERE studentID = " + studentID + ";";
+                + "FROM person INNER JOIN student ON person.ID = student.studentID WHERE person.ID = " + studentID + ";";
         ResultSet studentInfoSet = null;
 
         Class.forName("com.mysql.jdbc.Driver");
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryStudentInfo);
             studentInfoSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
@@ -40,7 +40,7 @@ public class StudentDAO {
 
         Class.forName("com.mysql.jdbc.Driver");
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryEnrolled);
             classesTakenSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class StudentDAO {
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
              PreparedStatement preparedStatement = connection.prepareStatement(queryDropClass)) {
              preparedStatement.setLong(1, course.getCourseID());
 
@@ -83,7 +83,7 @@ public class StudentDAO {
         ResultSet resultSet = null;
         Class.forName("com.mysql.jdbc.Driver");
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryGetEndDate);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -116,7 +116,7 @@ public class StudentDAO {
 
         Class.forName("com.mysql.jdbc.Driver");
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryCoursesNotTaken);
             coursesNotTakenSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
@@ -135,7 +135,7 @@ public class StudentDAO {
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+                .getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
              PreparedStatement preparedStatement = connection.prepareStatement(queryEnrollClass)) {
             preparedStatement.setLong(1, course.getCourseID());
 
@@ -157,7 +157,7 @@ public class StudentDAO {
         Class.forName("com.mysql.jdbc.Driver");
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryCurrentEnrolled);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.last();
@@ -182,7 +182,7 @@ public class StudentDAO {
         ResultSet resultSet = null;
         Class.forName("com.mysql.jdbc.Driver");
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/university2", "root", "");
             PreparedStatement preparedStatement = connection.prepareStatement(queryGetEndDate);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();

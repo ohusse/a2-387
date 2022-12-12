@@ -6,6 +6,19 @@ import java.util.Date;
 public class Course implements Serializable
 {
     private long courseID;
+
+    public Course() {
+        this.courseID = 0;
+        this.courseCode = "";
+        this.adminID = 0;
+        this.semesterID = 0;
+        this.days = "";
+        this.startTime = "";
+        this.endTime = "";
+        this.title = "";
+        this.room = "";
+    }
+
     private String courseCode;
     private long adminID;
     private int semesterID;
@@ -14,6 +27,18 @@ public class Course implements Serializable
     private String endTime;
     private String title;
     private String room;
+
+    public Course(long courseID, String courseCode, long adminID, int semesterID, String days, String startTime, String endTime, String title, String room) {
+        this.courseID = courseID;
+        this.courseCode = courseCode;
+        this.adminID = adminID;
+        this.semesterID = semesterID;
+        this.days = days;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.title = title;
+        this.room = room;
+    }
 
     public long getCourseID() {
         return courseID;

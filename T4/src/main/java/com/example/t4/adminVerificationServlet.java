@@ -43,8 +43,6 @@ public class adminVerificationServlet extends jakarta.servlet.http.HttpServlet {
             String password = request.getParameter("password");
             ResultSet result = adminVerificaton.adminVerification(adminID,password);
 
-            mapper.test();
-
 
             if(result.next()){
                 response.sendRedirect("adminServlet");

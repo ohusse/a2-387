@@ -29,9 +29,9 @@
                     <% ResultSet result = (ResultSet) request.getAttribute("resultString"); %>
                     <% while (result.next()){%>
                     <%="<tr>"%>
-                    <%="<td>"%><%=result.getString("studentID")%><%="</td>"%>
+                    <%="<td>"%><%=result.getString("ID")%><%="</td>"%>
                     <%="<td>"%><%=result.getString("firstName")%> <%=result.getString("lastName")%><%="</td>"%>
-                    <%="<td><a href=./studentDetailsServlet?studentID="%><%=result.getString("studentID")%><%=">Show Student Details</a></td>"%>
+                    <%="<td><a href=./studentDetailsServlet?ID="%><%=result.getString("ID")%><%=">Show Student Details</a></td>"%>
                     <%="</tr>"%> <%}%>
                     </tbody>
                 </table>
