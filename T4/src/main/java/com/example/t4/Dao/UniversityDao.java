@@ -10,11 +10,11 @@ public class UniversityDao {
     //displays the information of all the courses in the database
     public ResultSet displayAllCourses() throws ClassNotFoundException
     {
-        String DISPLAY_ALLCOURSES_SQL = "SELECT c.courseCode, c.title, p.firstName, s.season, c.days, c.startTime, c.endTime,  c.room,  c.courseID "
+        String DISPLAY_ALLCOURSES_SQL = "SELECT DISTINCT c.courseCode, c.title, p.firstName, s.season, c.days, c.startTime, c.endTime,  c.room,  c.courseID "
                 + "FROM course AS c "
                 + "INNER JOIN person AS p ON c.adminID = p.ID "
                 + "INNER JOIN semester AS s ON c.semesterID - s.semesterID "
-                + "INNER JOIN admin AS a ON a.adminID = p.ID;";
+                + ";";
 
         ResultSet result = null;
 

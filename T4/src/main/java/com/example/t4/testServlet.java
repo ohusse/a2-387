@@ -36,6 +36,7 @@ public class testServlet extends jakarta.servlet.http.HttpServlet {
             out.println("<html>");
             out.println("<body>");
             out.println("<p>Query executed. Check database</p>");
+
             out.println("</body>");
             out.println("</html>");
 

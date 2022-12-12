@@ -36,7 +36,7 @@ body {
     justify-content: center;
 }
 
-a:not(.someA){
+a{
     margin: 0px 60px 0px 60px;
     color: #F5F1EE;
     font-size: 26px;
